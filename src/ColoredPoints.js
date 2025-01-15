@@ -45,6 +45,8 @@ let u_Size;
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0]
 let g_selectedSize = 5;
 let g_selectedType = POINT;
+let g_selectedSegments = 12;
+
 
 function main() {
     setUpWebGL();
