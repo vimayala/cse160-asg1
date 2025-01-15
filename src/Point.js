@@ -1,3 +1,6 @@
+// Point.js
+// Defines the Point class
+// Defines position, color, and size of a point
 class Point{
     constructor(){
         this.type = 'point';
@@ -7,9 +10,6 @@ class Point{
     }
 
     render(){
-        // var len = g_shapesList.length;
-
-        // for(var i = 0; i < len; i++) {
         var xy = this.position;
         var rgba = this.color;
         var size = this.size;
@@ -24,6 +24,5 @@ class Point{
     
         // Draw
         gl.drawArrays(gl.POINTS, 0, 1);
-        // }
     }
 }
