@@ -3,8 +3,11 @@
 
 
 // Ideas for add ons:
-//    Save color presets
-//    Shape rotation
+//  Save color presets
+//  Shape rotation
+//  Make page...pretty
+// Only display HTML CIRCLES if circles selected (maybe, not sure bc not drop down, would be on click and might get annoying if not saved)
+// adjust sliders (CSS?)
 
 var VSHADER_SOURCE =`
     attribute vec4 a_Position;
@@ -23,6 +26,13 @@ var FSHADER_SOURCE =
   '  gl_FragColor = u_FragColor;\n' +
   '}\n';
 
+
+// Constants
+const POINT = 0;
+const TRIANGLE = 1;
+const CIRCLE = 2;
+
+
 // Defining global variables
 let canvas;
 let gl;
@@ -34,6 +44,7 @@ let u_Size;
 // Global variables for HTML action
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0]
 let g_selectedSize = 5;
+let g_selectedType = POINT;
 
 function main() {
     setUpWebGL();
@@ -61,10 +72,23 @@ function handleClicks(ev) {
     [x,y] = convertCoordinatesToGL(ev);
 
     // Create and store new point with position, color, and size set
-    let point = new Triangle();
+    let point;
+
+    // Create new shape through button feedback
+    if(g_selectedType == POINT){
+        point = new Point;
+    }
+    else if (g_selectedType == TRIANGLE){
+        point = new Triangle;
+    }
+    else{
+        point = new Circle;
+    }
+
     point.position = [x, y];
     point.color = [g_selectedColor[0], g_selectedColor[1], g_selectedColor[2], g_selectedColor[3]];
     point.size = g_selectedSize;
+    point.segments = g_selectedSegments;
     g_shapesList.push(point);
 
   // Draw all the set of shapes needed for the canvas
@@ -75,10 +99,6 @@ function setUpWebGL(){
     // Retrieve <canvas> element
     canvas = document.getElementById('webgl');
   
-    // Get the rendering context for WebGL
-    //   gl = getWebGLContext(canvas);
-    // Line below didn't work
-    // gl = getWebGLContext("webGl",  {preserveDrawingBuffer: true} );
     gl = canvas.getContext("webgl", { preserveDrawingBuffer: true });
 ``
     if (!gl) {
@@ -125,13 +145,20 @@ function addActionForHTMLUI(){
         renderAllShapes(); 
     };
 
+    document.getElementById('pointButton').onclick = function () {g_selectedType = POINT};
+    document.getElementById('triButton').onclick = function () {g_selectedType = TRIANGLE};
+    document.getElementById('circleButton').onclick = function () {g_selectedType = CIRCLE};
+
+
     // Color Slider Events
     document.getElementById('redSlider').addEventListener('mouseup', function () { g_selectedColor[0] = this.value / 100; });
     document.getElementById('greenSlider').addEventListener('mouseup', function () { g_selectedColor[1] = this.value / 100; });
     document.getElementById('blueSlider').addEventListener('mouseup', function () { g_selectedColor[2] = this.value / 100; });
 
-    // Size Slider Events
+    // Size + Segments Slider Events
     document.getElementById('sizeSlider').addEventListener('mouseup', function() { g_selectedSize =  this.value; });
+    document.getElementById('segSlider').addEventListener('mouseup', function() { g_selectedSegments =  this.value; });
+
 
 }
 

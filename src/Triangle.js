@@ -24,8 +24,9 @@ class Triangle{
         // Pass the size of a point to u_Size variable
         gl.uniform1f(u_Size, size);
     
-        // Call drawTriangle with the x, y and offsets
-        drawTriangle( [xy[0], xy[1], xy[0] + 0.1, xy[1], xy[0], xy[1] + 0.1]);
+        // Get new Triangle's size, then draw the triangle with the x, y and offsets
+        var d = this.size / 200.0
+        drawTriangle( [xy[0], xy[1], xy[0] + d, xy[1], xy[0], xy[1] + d]);
     }
 }
 
@@ -100,8 +101,9 @@ function drawTriangle(vertices) {
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
     
     // Write date into the buffer object, sending verticies to GPU
-    // gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+    // Use DYNAMIC_DRAW because we want the program to know
+    //      we are going to continue to send more and more triangles
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
 
 
     // We have this in ColoredPoints.js
