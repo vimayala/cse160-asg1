@@ -83,6 +83,12 @@ function handleClicks(ev) {
 
     point.position = [x, y];
     point.color = [g_selectedColor[0], g_selectedColor[1], g_selectedColor[2], g_selectedColor[3]];
+    console.log("Current color = : \n" +
+        g_selectedColor[0] + "\t" +
+        g_selectedColor[1] + "\t" +    
+        g_selectedColor[2] + "\t" +
+        g_selectedColor[3] 
+    );
     point.size = g_selectedSize;
     point.segments = g_selectedSegments;
     g_shapesList.push(point);
@@ -147,6 +153,7 @@ function connectVariablesToWebGL(){
 }
 
 function addActionForHTMLUI(){
+
     document.getElementById('clear').onclick = function () { 
         g_shapesList = []; 
         renderAllShapes(); 
@@ -161,9 +168,9 @@ function addActionForHTMLUI(){
 
     };
     document.getElementById('creamCanvas').onclick = function () { 
-        g_clearColorR = 0.5;
-        g_clearColorG = 0.5
-        g_clearColorB = 0.5;
+        g_clearColorR = 0.92;
+        g_clearColorG = 0.91
+        g_clearColorB = 0.90;
         gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
             // Clear <canvas>
         gl.clear(gl.COLOR_BUFFER_BIT);

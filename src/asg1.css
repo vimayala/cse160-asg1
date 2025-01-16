@@ -6,6 +6,7 @@ body, h1, h2, h3, p, ul, ol {
 }
 
 canvas {
+    margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -13,7 +14,7 @@ canvas {
 
 body {
     font-family: Segoe UI, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f9f9f9;
     color: #57595f;
     line-height: 1.5;
     padding: 25px;
@@ -43,7 +44,7 @@ button:hover {
 .slider {
     -webkit-appearance: none; /* Remove default styling */
     appearance: none;
-    width: 80%;
+    width: 25%;
     height: 6px;
     background: #dddddd; /* Track color */
     outline: none;
@@ -84,8 +85,18 @@ button:hover {
     background-size: contain;
     cursor: pointer;
 }
-img {
+button img {
     width: 20px;
     height: 20px;
-  }
-  
+}
+
+/* Styling for the easel image */
+#easelImage {
+    position: absolute; /* Allows for precise placement */
+    width: 950px; 
+    /* height: auto; Maintain aspect ratio */
+    bottom: -125px; 
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center offset correction */
+    z-index: -1;
+}
