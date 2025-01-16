@@ -5,9 +5,10 @@
 class Triangle{
     constructor(){
         this.type = 'triangle';
-        this.position = [0.0, 0.0, 0.0];
+        this.position = [0.0, 0.0,      0.0, 0.0,       0.0, 0.0];
         this.color = [1.0, 1.0, 1.0, 1.0];
         this.size = 5.0;
+        this.right = 1;
     }
 
     render(){
@@ -26,69 +27,19 @@ class Triangle{
     
         // Get new Triangle's size, then draw the triangle with the x, y and offsets
         var d = this.size / 200.0
-        drawTriangle( [xy[0], xy[1], xy[0] + d, xy[1], xy[0], xy[1] + d]);
+        if(this.right == 1){
+            drawTriangle( [xy[0], xy[1],    xy[0] + d, xy[1],   xy[0], xy[1] + d]);
+        }
+        else{
+            drawTriangle( [xy[0], xy[1],    xy[2] + d, xy[3],   xy[4], xy[5] + d]);
+        }
     }
 }
 
-
-// // HelloTriangle.js (c) 2012 matsuda
-// // Vertex shader program
-// var VSHADER_SOURCE =
-//     'attribute vec4 a_Position;\n' +
-//     'void main() {\n' +
-//     '  gl_Position = a_Position;\n' +
-//     '}\n';
-
-// // Fragment shader program
-// var FSHADER_SOURCE =
-//     'void main() {\n' +
-//     '  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n' +
-//     '}\n';
-
-// function main() {
-//     // Retrieve <canvas> element
-//     var canvas = document.getElementById('webgl');
-
-//     // Get the rendering context for WebGL
-//     gl = getWebGLContext(canvas);
-//     if (!gl) {
-//         console.log('Failed to get the rendering context for WebGL');
-//         return;
-//     }
-
-//     // Initialize shaders
-//     if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
-//         console.log('Failed to intialize shaders.');
-//         return;
-//     }
-
-//     // // Write the positions of vertices to a vertex shader
-//     // var n = initVertexBuffers(gl);
-//     // if (n < 0) {
-//     //     console.log('Failed to set the positions of the vertices');
-//     //     return;
-//     // }
-
-//     // Specify the color for clearing <canvas>
-//     gl.clearColor(0, 0, 0, 1);
-
-//     // Clear <canvas>
-//     gl.clear(gl.COLOR_BUFFER_BIT);
-
-//     // // Draw the rectangle
-//     // gl.drawArrays(gl.TRIANGLES, 0, n);
-//     // Draw the triangles
-//     drawTriangle([0, 0.5,   -0.5, -0.5,     0.5, -0.5]);
-
-// }
-
 function drawTriangle(vertices) {
     
-    // // Have vertices array on CPU
-    // var vertices = new Float32Array([
-    //     0, 0.5,   -0.5, -0.5,   0.5, -0.5
-    // ]);
-    var n = 3; // The number of vertices
+    // Set the number of vertices, 3 for triangle
+    var n = 3;
 
     // Create a buffer object
     var vertexBuffer = gl.createBuffer();
@@ -105,14 +56,6 @@ function drawTriangle(vertices) {
     //      we are going to continue to send more and more triangles
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
 
-
-    // We have this in ColoredPoints.js
-    // var a_Position = gl.getAttribLocation(gl.program, 'a_Position');
-    // if (a_Position < 0) {
-    //     console.log('Failed to get the storage location of a_Position');
-    // return -1;
-    // }
-
     // Assign the buffer object to a_Position variable
     gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
 
@@ -121,5 +64,4 @@ function drawTriangle(vertices) {
 
     gl.drawArrays(gl.TRIANGLES, 0, n);
 
-    // return n;
 }
