@@ -65,7 +65,7 @@ function main() {
     // Clear <canvas>
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    birthdayCake();
+    // birthdayCake();
 }
 
 var g_shapesList = [];
@@ -150,7 +150,7 @@ function addActionForHTMLUI(){
         g_shapesList = []; 
         renderAllShapes(); 
     };
-
+    document.getElementById('cakeToggle').onclick = function () { birthdayCake(); };
     document.getElementById('pointButton').onclick = function () {g_selectedType = POINT};
     document.getElementById('triButton').onclick = function () {g_selectedType = TRIANGLE};
     document.getElementById('circleButton').onclick = function () {g_selectedType = CIRCLE};
@@ -209,125 +209,6 @@ function sendTextToHTML(text, htmlID){
     htmlElm.innerHTML = text;
 }
 
-
-// function birthdayCake() {
-//     // Define the base of the cake as a series of layers
-//     let cakeColor = [0.8, 0.6, 0.3, 1.0]; // Brownish for the cake
-//     let layerHeight = 0.15; // Height of each layer
-//     let layerWidth = 0.5; // Width of each layer
-//     let positionX = 0.0; // Centered horizontally
-//     let positionY = -0.7; // Starting position at the bottom
-    
-//     // Create cake layers (3 layers in this example)
-//     for (let i = 0; i < 3; i++) {
-//         let triangle1 = new Triangle();
-//         triangle1.position = [positionX - layerWidth / 2, positionY];
-//         triangle1.size = layerWidth * 200;
-//         triangle1.color = cakeColor;
-//         triangle1.right = 0;
-
-//         let triangle2 = new Triangle();
-//         triangle2.position = [positionX + layerWidth / 2, positionY];
-//         triangle2.size = layerWidth * 200;
-//         triangle2.color = cakeColor;
-
-//         g_shapesList.push(triangle1);
-//         g_shapesList.push(triangle2);
-
-//         // Update position for the next layer
-//         positionY += layerHeight;
-//         layerWidth -= 0.1; // Decrease width for the next layer
-//     }
-
-//     // Add candles on top
-//     let candleColor = [1.0, 1.0, 0.0, 1.0]; // Yellow for candles
-//     let candleSize = 0.05; // Size of the candles
-//     let numCandles = 3; // Number of candles
-//     let candleSpacing = 0.2;
-
-//     for (let i = 0; i < numCandles; i++) {
-//         let candle = new Triangle();
-//         candle.position = [
-//             positionX - (candleSpacing * (numCandles - 1)) / 2 + i * candleSpacing,
-//             positionY
-//         ];
-//         candle.size = candleSize * 200;
-//         candle.color = candleColor;
-
-//         g_shapesList.push(candle);
-//     }
-
-//     // Render the entire shapes list
-//     renderAllShapes();
-// }
-
-// function birthdayCake(){
-//     let cakeSize = 50 / 200;
-
-
-//     // bottom left, bottom right, top left
-//     // let cakeBody1 = [-0.75, -0.55,    0.55, -0.55,     -0.75, -0.25];
-//     let cakeHeight = 0.55;
-
-
-//     let cakeBody1 = [-0.75, 0 - cakeHeight,         -0.75, 0.55 - cakeHeight,           0.75, 0.0 -cakeHeight];
-//     let cakeBody2 = [0.75, 0,    0.75, -0.55,     -0.75, 0.0];
-
-//     let cakeFrostingPos1 = [0.55, 0,    0.55, -0.15,     0.75, 0.0];
-//     let cakeFrostingPos2 = [-0.55, 0,    -0.55, -0.15,     -0.75, 0.0];
-
-
-
-//     cakeColor = [0.8, 0.6, 0.3, 1.0];
-
-//     let cakeMain1 = new Triangle;
-//     createCake(cakeMain1, cakeBody1, cakeColor, cakeSize);
-
-//     let cakeMain2 = new Triangle;
-//     createCake(cakeMain2, cakeBody2, [0.8, 0.4, 0.3, 1.0], cakeSize);
-
-//     let cakeFrosting1 = new Triangle;
-//     createCake(cakeFrosting1, cakeFrostingPos1, [1.0, 0.6, 1.0, 1.0], cakeSize);
-
-//     let cakeFrosting2 = new Triangle;
-//     createCake(cakeFrosting2, cakeFrostingPos2, [1.0, 0.6, 1.0, 1.0], cakeSize);
-
-
-    
-
-
-//     renderAllShapes();
-
-//     // let cakeBody2 = [0.375, 0.05,    0.185, -0.25,     -0.285, -0.195];
-
-
-    
-
-//     //                       ,                               - cake  to flip y, - cake to flip x 
-//     // drawTriangle( [cakeBody1[0], cakeBody1[1],    cakeBody1[0] + cakeSize, cakeBody1[1],   cakeBody1[0], cakeBody1[1] + cakeSize]);
-
-//     // drawTriangle( [cakeBody1[0], cakeBody1[1],    cakeBody1[2] + cakeSize, cakeBody1[3],   cakeBody1[4], cakeBody1[5] + cakeSize]);
-//     // drawTriangle( [cakeBody2[0], cakeBody2[1],    cakeBody2[2] + cakeSize, cakeBody2[3],   cakeBody2[4], cakeBody2[5] + cakeSize]);
-
-
-
-
-//     // drawTriangle( [cakeBody2[0], cakeBody2[1],    cakeBody2[2] + cakeSize, cakeBody2[3],   cakeBody2[4], cakeBody2[5] + cakeSize]);
-
-//     // let cake = new Triangle();
-
-//     // cake.position = [-0.285, -0.195];
-
-//     // createShapes(cake);
-
-//     // point.position = [x, y];
-//     // point.color = [g_selectedColor[0], g_selectedColor[1], g_selectedColor[2], g_selectedColor[3]];
-//     // point.size = g_selectedSize;
-//     // point.segments = g_selectedSegments;
-//     // g_shapesList.push(point);
-// }
-
-
 function birthdayCake() {
     // Define cake size
     // let cakeSize = 0.25;
@@ -344,7 +225,6 @@ function birthdayCake() {
 
     let topFrostingWidth = 0.15;
     let topFrostingHeight = 0.125;
-
 
     // Defining position arrays
     let cakeBody1 = [
