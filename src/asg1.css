@@ -1,8 +1,6 @@
-/* Reset some default styles */
 body, h1, h2, h3, p, ul, ol {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 canvas {
@@ -21,82 +19,140 @@ body {
 }
 
 button {
-    background: #8fa1c9;
+    background: #a3b4d8;
     color: #fff;
     padding: 10px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease;
-    background-image: inherit;
 }
 
 button:hover {
     background: #6f7c97;
 }
 
-/* Styling taken from https://www.w3schools.com/howto/howto_js_rangeslider.asp to beautify the sliders */
+/* Slider styling taken from https://www.w3schools.com/howto/howto_js_rangeslider.asp to beautify the sliders */
 .slider-container {
-    width: 150px; /* Adjust based on your layout */
-    margin: 20px auto;
+    width: 150px;
 }
 
 .slider {
-    -webkit-appearance: none; /* Remove default styling */
+    -webkit-appearance: none; 
     appearance: none;
-    width: 25%;
-    height: 6px;
-    background: #dddddd; /* Track color */
-    outline: none;
+    width: 27%;
+    height: 15px;
     border-radius: 5px;
-    transition: background 0.3s ease;
+    background: #d3d3d3; 
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+  
+  .slider:hover {
+    opacity: 1;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #828eaa;
     cursor: pointer;
-}
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #828eaa;
+    cursor: pointer;
+  }
+
 
 .slider:hover {
     background: #ccc; /* Slightly darker on hover */
 }
 
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 24px;
-    border: 0;
-    background: url('contrasticon.png') no-repeat center center;
-    background-size: contain;
-    cursor: pointer;
-}
+/* Above from W3Schools */
 
-.slider::-moz-range-thumb {
-    width: 20px;
-    height: 24px;
-    border: 0;
-    background: url('contrasticon.png') no-repeat center center;
-    background-size: contain;
-    cursor: pointer;
-}
-
-.slider::-ms-thumb {
-    width: 23px;
-    height: 24px;
-    border: 0;
-    background: url('contrasticon.png') no-repeat center center;
-    background-size: contain;
-    cursor: pointer;
-}
 button img {
     width: 20px;
     height: 20px;
 }
 
-/* Styling for the easel image */
 #easelImage {
-    position: absolute; /* Allows for precise placement */
+    position: absolute; 
     width: 950px; 
-    /* height: auto; Maintain aspect ratio */
     bottom: -125px; 
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Center offset correction */
+    left: 50%;
+    transform: translateX(-50%); 
     z-index: -1;
+}
+
+#colorPreview {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #b6b6b6;
+    margin-top: 10px;
+    margin-left: -825px; 
+
+}
+
+/* Allow sliders and color preview to have their own spots */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.sliders {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Keep sliders at same distance */
+#redSlider{
+    margin-left: 25px;
+}
+#greenSlider{
+    margin-left: 12px;
+}
+#blueSlider{
+    margin-left: 25px;
+}
+
+/* Change slider button color per color */
+#redSlider.slider::-moz-range-thumb {
+    background: #ff0000;
+}
+#redSlider.slider::-ms-thumb {
+    background: #ff0000;
+}
+#redSlider.slider::-webkit-slider-thumb {
+    background: #ff0000;
+}
+
+#greenSlider.slider::-moz-range-thumb {
+    background: #00ff55;
+}
+#greenSlider.slider::-ms-thumb {
+    background: #00ff55;
+}
+#greenSlider.slider::-webkit-slider-thumb {
+    background: #00ff55;
+}
+  
+#blueSlider.slider::-moz-range-thumb {
+    background: #1783ff;
+}
+#blueSlider.slider::-ms-thumb {
+    background: #1783ff;
+}
+#blueSlider.slider::-webkit-slider-thumb {
+    background: #1783ff;
 }

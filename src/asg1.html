@@ -32,12 +32,15 @@ Note to Graders:
       Canvas Color:
     </h3>
   </h2>
-    <button type="button" id="whiteCanvas">White Canvas</button>
-    <button type="button" id="creamCanvas">Brown Canvas</button>
-    <button type="button" id="blackCanvas">Black Canvas</button>
-
-
-    <button type="button" id="cakeToggle">Cake</button>
+    <button type="button" id="whiteCanvas">
+      <img src = "../lib/assets/whiteCanvas.png"> 
+    </button>
+    <button type="button" id="creamCanvas">
+      <img src = "../lib/assets/creamCanvas.png"> 
+    </button>
+    <button type="button" id="blackCanvas">
+      <img src = "../lib/assets/blackCanvas.png"> 
+    </button>
 
     <!-- <p>
       Color Selection:
@@ -59,26 +62,35 @@ Note to Graders:
     </button>
 
     <!-- <p id = "numdot">XXX</p> -->
+     
+    <div class="container">
+      <div class="sliders">
+        <h2>Color Adjustment:</h2>
+        <p>Red <input type="range" min="0" max="100" value="100" class="slider" id="redSlider"></p>
+        <p>Green <input type="range" min="0" max="100" value="100" class="slider" id="greenSlider"></p>
+        <p>Blue <input type="range" min="0" max="100" value="100" class="slider" id="blueSlider"></p>
+        <p>Opacity <input type="range" min="0" max="100" value="100" class="slider" id="alphaSlider"></p>
+      </div>
+      <div id="colorPreview"></div>
+    </div>
+
 
     <h2>
-    Color Adjustment:
+      Size and Circle Options:
     </h2>
-    <p>
-    Red <input type="range" min="0" max="100" value="100" class="slider" id="redSlider">
-    <p>
-    Green <input type="range" min="0" max="100" value="100" class="slider" id="greenSlider">
-    <p>
-    Blue <input type="range" min="0" max="100" value="100" class="slider" id="blueSlider">
-    <p>
-    Opacity <input type="range" min="0" max="100" value="100" class="slider" id="alphaSlider">
-  
-    <p>
-    Size and Circle Options:
-    
-    <p>
-    Size <input type="range" min="5" max="40" value="100" class="slider" id="sizeSlider">
-    <p>
-    (Circles) Segment Count <input type="range" min="5" max="40" value="100" class="slider" id="segSlider">
+    <div class="sliders">
+      <p>
+      Size <input type="range" min="5" max="40" value="100" class="slider" id="sizeSlider">
+      <p>
+      (Circles) Segment Count <input type="range" min="5" max="40" value="100" class="slider" id="segSlider">
+    </div>
+
+
+    <h2>
+      Let Them Eat Cake:
+    </h2>
+    <button type="button" id="cakeToggle">🍰</button>
+
 
     <script src="../lib/webgl-utils.js"></script>
     <script src="../lib/webgl-debug.js"></script>

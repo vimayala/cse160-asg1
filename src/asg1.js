@@ -3,11 +3,7 @@
 // Vertex shader program
 
 // Ideas for add ons:
-//  Shape rotation
-//  Make page...pretty
-// Only display HTML CIRCLES if circles selected (maybe, not sure bc not drop down, would be on click and might get annoying if not saved)
-// adjust sliders (CSS?)
-
+//  Last 5 used colors
 var VSHADER_SOURCE =`
     attribute vec4 a_Position;
     uniform float u_Size;
@@ -60,6 +56,7 @@ function main() {
     canvas.onmousemove = function(ev) { if(ev.buttons === 1){ handleClicks(ev); } };
 
     clearCanvas();
+    updateColorPreview();
 }
 
 function handleClicks(ev) {
@@ -149,11 +146,11 @@ function connectVariablesToWebGL(){
         console.log('Failed to get the storage location of u_Size');
         return;
     }
-
 }
 
 function addActionForHTMLUI(){
 
+    // Canvas Color + Clear Button Events
     document.getElementById('clear').onclick = function () { 
         g_shapesList = []; 
         renderAllShapes(); 
@@ -163,16 +160,14 @@ function addActionForHTMLUI(){
         g_clearColorG = 1.0
         g_clearColorB = 1.0;
         gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
-            // Clear <canvas>
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     };
     document.getElementById('creamCanvas').onclick = function () { 
-        g_clearColorR = 0.92;
-        g_clearColorG = 0.91
-        g_clearColorB = 0.90;
+        g_clearColorR = 0.88;
+        g_clearColorG = 0.85;
+        g_clearColorB = 0.82;
         gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
-            // Clear <canvas>
         gl.clear(gl.COLOR_BUFFER_BIT);
 
     };
@@ -181,27 +176,42 @@ function addActionForHTMLUI(){
         g_clearColorG = 0.0
         g_clearColorB = 0.0;
         gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
-            // Clear <canvas>
-    gl.clear(gl.COLOR_BUFFER_BIT);
-        
+        gl.clear(gl.COLOR_BUFFER_BIT);
     };
 
+    // Cake Preview Button Events
     document.getElementById('cakeToggle').onclick = function () { birthdayCake(); };
 
-    // Shape Buttons
+    // Shape Button Events
     document.getElementById('pointButton').onclick = function () {g_selectedType = POINT};
     document.getElementById('triButton').onclick = function () {g_selectedType = TRIANGLE};
     document.getElementById('circleButton').onclick = function () {g_selectedType = CIRCLE};
 
     // Color Slider Events
-    document.getElementById('redSlider').addEventListener('mouseup', function () { g_selectedColor[0] = this.value / 100; });
-    document.getElementById('greenSlider').addEventListener('mouseup', function () { g_selectedColor[1] = this.value / 100; });
-    document.getElementById('blueSlider').addEventListener('mouseup', function () { g_selectedColor[2] = this.value / 100; });
-    document.getElementById('alphaSlider').addEventListener('mouseup', function () { g_selectedColor[3] = this.value / 100; });
+    const colorPreview = document.getElementById('colorPreview');
+    const redSlider = document.getElementById('redSlider').addEventListener('input', updateColorPreview);
+    const greenSlider = document.getElementById('greenSlider').addEventListener('input', updateColorPreview);
+    const blueSlider = document.getElementById('blueSlider').addEventListener('input', updateColorPreview);
+    const alphaSlider = document.getElementById('alphaSlider').addEventListener('input', updateColorPreview);
 
     // Size + Segments Slider Events
     document.getElementById('sizeSlider').addEventListener('mouseup', function() { g_selectedSize =  this.value; });
     document.getElementById('segSlider').addEventListener('mouseup', function() { g_selectedSegments =  this.value; });
+}
+
+function updateColorPreview() {
+    const red = redSlider.value / 100;
+    const green = greenSlider.value / 100;
+    const blue = blueSlider.value / 100;
+    const alpha = alphaSlider.value / 100;
+
+    // Update global selected color
+    g_selectedColor[0] = red;
+    g_selectedColor[1] = green;
+    g_selectedColor[2] = blue;
+    g_selectedColor[3] = alpha;
+
+    colorPreview.style.backgroundColor = `rgba(${red * 255}, ${green * 255}, ${blue * 255}, ${alpha})`;
 }
 
 function convertCoordinatesToGL(ev){
