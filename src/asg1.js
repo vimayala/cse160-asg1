@@ -1,9 +1,8 @@
-// ColoredPoint.js (c) 2012 matsuda
+// asg1.js
+// Sourced from ColoredPoint.js (c) 2012 matsuda with CSE 160 Additional functionality
 // Vertex shader program
 
-
 // Ideas for add ons:
-//  Save color presets
 //  Shape rotation
 //  Make page...pretty
 // Only display HTML CIRCLES if circles selected (maybe, not sure bc not drop down, would be on click and might get annoying if not saved)
@@ -32,7 +31,6 @@ const POINT = 0;
 const TRIANGLE = 1;
 const CIRCLE = 2;
 
-
 // Defining global variables
 let canvas;
 let gl;
@@ -40,35 +38,29 @@ let a_Position;
 let u_FragColor;
 let u_Size;
 
-
 // Global variables for HTML action
+let g_clearColorR = 0.0;
+let g_clearColorG = 0.0;
+let g_clearColorB = 0.0;
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0]
 let g_selectedSize = 5;
 let g_selectedType = POINT;
 let g_selectedSegments = 12;
 
+var g_shapesList = [];
+
 
 function main() {
     setUpWebGL();
     connectVariablesToWebGL();
-
     addActionForHTMLUI();
 
-    // Register function (event handler) to be called on a mouse press
+    // Register function (event handler) to be called on a mouse press and allows clicking and dragging on the canvas
     canvas.onmousedown = handleClicks;
     canvas.onmousemove = function(ev) { if(ev.buttons === 1){ handleClicks(ev); } };
 
-
-    // Specify the color for clearing <canvas>
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-
-    // Clear <canvas>
-    gl.clear(gl.COLOR_BUFFER_BIT);
-
-    // birthdayCake();
+    clearCanvas();
 }
-
-var g_shapesList = [];
 
 function handleClicks(ev) {
 
@@ -89,83 +81,120 @@ function handleClicks(ev) {
         point = new Circle;
     }
 
-    // createShapes(point);
-
     point.position = [x, y];
     point.color = [g_selectedColor[0], g_selectedColor[1], g_selectedColor[2], g_selectedColor[3]];
     point.size = g_selectedSize;
     point.segments = g_selectedSegments;
     g_shapesList.push(point);
 
-  // Draw all the set of shapes needed for the canvas
-  renderAllShapes();
+    // Draw all the set of shapes needed for the canvas
+    renderAllShapes();
+}
+
+function clearCanvas(){
+    // Specify the color for clearing <canvas>
+    gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
+
+    // Clear <canvas>
+    gl.clear(gl.COLOR_BUFFER_BIT);
 }
 
 function setUpWebGL(){
     // Retrieve <canvas> element
     canvas = document.getElementById('webgl');
-  
+
     gl = canvas.getContext("webgl", { preserveDrawingBuffer: true });
-``
+    ``
     if (!gl) {
         console.log('Failed to get the rendering context for WebGL');
         return;
     }
+
+    // Used to add transparency
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
 }
+
 function connectVariablesToWebGL(){
-  // Initialize shaders
-  if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
-    console.log('Failed to intialize shaders.');
-    return;
-  }
+    // Initialize shaders
+    if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
+        console.log('Failed to intialize shaders.');
+        return;
+    }
 
-  // Get the storage location of a_Position
-  a_Position = gl.getAttribLocation(gl.program, 'a_Position');
-  if (a_Position < 0) {
-    console.log('Failed to get the storage location of a_Position');
-    return;
-  }
+    // Get the storage location of a_Position
+    a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+    if (a_Position < 0) {
+        console.log('Failed to get the storage location of a_Position');
+        return;
+    }
 
-  // Get the storage location of u_FragColor
-  u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
-  if (!u_FragColor) {
-    console.log('Failed to get the storage location of u_FragColor');
-    return;
-  }
+    // Get the storage location of u_FragColor
+    u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
+    if (!u_FragColor) {
+        console.log('Failed to get the storage location of u_FragColor');
+        return;
+    }
 
-  // Get the storage location of u_Size
-  u_Size = gl.getUniformLocation(gl.program, 'u_Size');
-  if (!u_Size) {
-    console.log('Failed to get the storage location of u_Size');
-    return;
-  }
+    // Get the storage location of u_Size
+    u_Size = gl.getUniformLocation(gl.program, 'u_Size');
+    if (!u_Size) {
+        console.log('Failed to get the storage location of u_Size');
+        return;
+    }
 
 }
 
 function addActionForHTMLUI(){
-    // Button Events
-    document.getElementById('green').onclick = function () { g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
-    document.getElementById('red').onclick = function () { g_selectedColor = [1.0, 0.0, 0.0, 1.0]; };
     document.getElementById('clear').onclick = function () { 
         g_shapesList = []; 
         renderAllShapes(); 
     };
+    document.getElementById('whiteCanvas').onclick = function () { 
+        g_clearColorR = 1.0;
+        g_clearColorG = 1.0
+        g_clearColorB = 1.0;
+        gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
+            // Clear <canvas>
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    };
+    document.getElementById('creamCanvas').onclick = function () { 
+        g_clearColorR = 0.5;
+        g_clearColorG = 0.5
+        g_clearColorB = 0.5;
+        gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
+            // Clear <canvas>
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+    };
+    document.getElementById('blackCanvas').onclick = function () { 
+        g_clearColorR = 0.0;
+        g_clearColorG = 0.0
+        g_clearColorB = 0.0;
+        gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
+            // Clear <canvas>
+    gl.clear(gl.COLOR_BUFFER_BIT);
+        
+    };
+
     document.getElementById('cakeToggle').onclick = function () { birthdayCake(); };
+
+    // Shape Buttons
     document.getElementById('pointButton').onclick = function () {g_selectedType = POINT};
     document.getElementById('triButton').onclick = function () {g_selectedType = TRIANGLE};
     document.getElementById('circleButton').onclick = function () {g_selectedType = CIRCLE};
-
 
     // Color Slider Events
     document.getElementById('redSlider').addEventListener('mouseup', function () { g_selectedColor[0] = this.value / 100; });
     document.getElementById('greenSlider').addEventListener('mouseup', function () { g_selectedColor[1] = this.value / 100; });
     document.getElementById('blueSlider').addEventListener('mouseup', function () { g_selectedColor[2] = this.value / 100; });
+    document.getElementById('alphaSlider').addEventListener('mouseup', function () { g_selectedColor[3] = this.value / 100; });
 
     // Size + Segments Slider Events
     document.getElementById('sizeSlider').addEventListener('mouseup', function() { g_selectedSize =  this.value; });
     document.getElementById('segSlider').addEventListener('mouseup', function() { g_selectedSegments =  this.value; });
-
-
 }
 
 function convertCoordinatesToGL(ev){
@@ -180,8 +209,7 @@ function convertCoordinatesToGL(ev){
 }
 
 function renderAllShapes(){
-
-    var startTime = performance.now();
+    // var startTime = performance.now();
 
     // Clear <canvas>
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -193,10 +221,8 @@ function renderAllShapes(){
 
   }
 
-  var duration = performance.now() - startTime;
-  sendTextToHTML("numdot :" + len + " ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration) / 10, "numdot");
-
-  
+    // var duration = performance.now() - startTime;
+    // sendTextToHTML("numdot :" + len + " ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration) / 10, "numdot");
 }
 
 // Send text to HTML, used for duration of renderAllShapes in this files 
@@ -210,9 +236,6 @@ function sendTextToHTML(text, htmlID){
 }
 
 function birthdayCake() {
-    // Define cake size
-    // let cakeSize = 0.25;
-
     // Define cake colors
     let cakeColor = [0.8, 0.6, 0.3, 1.0];
     let frostingColor = [0.9, 0.3, 0.4, 1.0];
@@ -248,7 +271,7 @@ function birthdayCake() {
         let startX = -cakeWidth / 2 - 0.075; // Starting x-coordinate
         let endX = cakeWidth / 2;   // Ending x-coordinate
 
-        for (let x = startX; x < endX; x += topFrostingWidth) {
+        for (let x = startX; x < endX; x += topFrostingWidth) {     // - Here is where I used ChatGPT for guidance- - - - - - - - - - - - - - - - - - - - - - - - - -
             if (Math.round((x - startX) / topFrostingWidth) % 2 === 0) {
                 let leftTriangle = [
                     x, 0.0,                              
@@ -266,22 +289,22 @@ function birthdayCake() {
                 let frostingRight = new Triangle();
                 createCake(frostingRight, rightTriangle, frostingColor);
             }
-        }
-
+        }                                                           // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
     // Create bottom frosting 
     let bottomFrostingHeight =  0.55;
 
     startX = -cakeWidth / 2 - 0.075; // Starting x-coordinate
-    endX = cakeWidth / 2;   // Ending x-coordinate
+    endX = cakeWidth / 2 - 0.05;   // Ending x-coordinate
 
-    for (let x = startX; x < endX; x += topFrostingWidth) {
-        if (Math.round((x - startX) / topFrostingWidth) % 2 === 0) {
+    let bottomFrostingWidth = 0.1875;
+    for (let x = startX; x < endX; x += bottomFrostingWidth) {
+        if (Math.round((x - startX) / bottomFrostingWidth) % 2 === 0) {
             // Left-Oriented Triangle
             let leftTriangle = [
                 x, 0.0 - bottomFrostingHeight,                              
                 x, topFrostingHeight  - bottomFrostingHeight,               
-                x + topFrostingWidth, 0.0 - bottomFrostingHeight            
+                x + bottomFrostingWidth, 0.0 - bottomFrostingHeight            
             ];
             let frostingLeft = new Triangle();
             createCake(frostingLeft, leftTriangle, frostingColor);
@@ -289,8 +312,8 @@ function birthdayCake() {
             // Right-Oriented Triangle
             let rightTriangle = [
                 x, 0.0  - bottomFrostingHeight,                              
-                x + topFrostingWidth, 0.0  - bottomFrostingHeight,            
-                x + topFrostingWidth, topFrostingHeight  - bottomFrostingHeight
+                x + bottomFrostingWidth, 0.0  - bottomFrostingHeight,            
+                x + bottomFrostingWidth, topFrostingHeight  - bottomFrostingHeight
             ];
             let frostingRight = new Triangle();
             createCake(frostingRight, rightTriangle, frostingColor);
@@ -362,7 +385,7 @@ function birthdayCake() {
         startX = -cakeWidth / 2 + sprinkleSize;
         startY = -cakeHeight + 0.6 / 2 - sprinkleSize; // Start at the top of the cake
         
-        for (let i = 0; i < numSprinkles; i++) {
+        for (let i = 0; i < numSprinkles; i++) {      // - Here is where I used ChatGPT for guidance- - - - - - - - - - - - - - - - - - - - - - - - - -
             // Alternate y positions for the zigzag pattern
             let x = startX + (i * sprinkleSize * 2.75); // Horizontal spacing between sprinkles
             let y = startY + (i % 2 === 0 ? sprinkleSize * 2.25 * Math.random() : -sprinkleSize * 2.25 * Math.random()); // Alternate up and down
@@ -374,16 +397,12 @@ function birthdayCake() {
             let sprinkle = [
                 (( i % 2 === 0 ? x - 0.02: x - 0.05)) , y + 0.01,
                 x + sprinkleSize / 2 - 0.1, (( i % 2 === 0 ? y + sprinkleSize: y + sprinkleSize + 0.005)),
-
-                // x + sprinkleSize / 2 , y + sprinkleSize + 0.02, // bottom-right corner
-
-                // (( i % 2 === 0 ? y + sprinkleSize: y + sprinkleSize + 0.02))
                 x - sprinkleSize / 2, y + sprinkleSize  // bottom-left corner
             ];
         
             let sprinkleTriangle = new Triangle();
             createCake(sprinkleTriangle, sprinkle, color);
-        }
+        }                                           // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // Render all shapes
     renderAllShapes();

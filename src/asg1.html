@@ -1,0 +1,90 @@
+<!-- Victoria Ayala
+vimayala@ucsc.edu
+
+Note to Graders:
+  In asg1.js, I used ChatGPT to help me figure out the math when looping over points (for the drawing, it's the cake frosting).
+  I cited where it was used. 
+  In asg1.css, I used w3schools to allow the sliders to have a nicer format.
+  I've also taken a class where we wrote in JavaScript, but I forgot the convention for placing classes in folders, so the shape-classes folder indicates where
+  the triangle, circle, and point classes are for now. Please let me know if there is an organizational preference for the class! Thank you :)
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="asg1.css">
+    <meta charset="utf-8" />
+    <title>Draw a point</title>
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+      Please use a browser that supports "canvas"
+    </canvas>
+
+    <h2>
+      <!-- Canvas Control: -->
+    <button type="button" id="clear">Clear Canvas</button>
+
+    <h3>
+      Canvas Color:
+    </h3>
+  </h2>
+    <button type="button" id="whiteCanvas">White Canvas</button>
+    <button type="button" id="creamCanvas">Brown Canvas</button>
+    <button type="button" id="blackCanvas">Black Canvas</button>
+
+
+    <button type="button" id="cakeToggle">Cake</button>
+
+    <!-- <p>
+      Color Selection:
+    <p>
+    <button type="button" id="green">Green</button>
+    <button type="button" id="red">Red</button> -->
+
+    <h2>
+      Shape Selections:
+    </h2>
+    <button type="button" id="pointButton">
+      <img src = "../lib/assets/sq.png"> 
+    </button>
+    <button type="button" id="triButton">
+      <img src = "../lib/assets/tri.png"> 
+    </button>
+    <button type="button" id="circleButton">
+      <img src = "../lib/assets/circle.png"> 
+    </button>
+
+    <!-- <p id = "numdot">XXX</p> -->
+
+    <h2>
+    Color Adjustment:
+    </h2>
+    <p>
+    Red <input type="range" min="0" max="100" value="100" class="slider" id="redSlider">
+    <p>
+    Green <input type="range" min="0" max="100" value="100" class="slider" id="greenSlider">
+    <p>
+    Blue <input type="range" min="0" max="100" value="100" class="slider" id="blueSlider">
+    <p>
+    Opacity <input type="range" min="0" max="100" value="100" class="slider" id="alphaSlider">
+  
+    <p>
+    Size and Circle Options:
+    
+    <p>
+    Size <input type="range" min="5" max="40" value="100" class="slider" id="sizeSlider">
+    <p>
+    (Circles) Segment Count <input type="range" min="5" max="40" value="100" class="slider" id="segSlider">
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/shape-classes/Point.js"></script>
+    <script src="../lib/shape-classes/Triangle.js"></script>
+    <script src="../lib/shape-classes/Circle.js"></script>
+    <script src="asg1.js"></script>
+
+  </body>
+</html>
