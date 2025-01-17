@@ -1,4 +1,5 @@
-<!-- Victoria Ayala
+<!-- 
+Victoria Ayala
 vimayala@ucsc.edu
 
 Note to Graders:
@@ -7,14 +8,14 @@ Note to Graders:
   In asg1.css, I used w3schools to allow the sliders to have a nicer format.
   I've also taken a class where we wrote in JavaScript, but I forgot the convention for placing classes in folders, so the shape-classes folder indicates where
   the triangle, circle, and point classes are for now. Please let me know if there is an organizational preference for the class! Thank you :)
-  -->
+-->
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <link rel="stylesheet" href="asg1.css">
     <meta charset="utf-8" />
-    <title>Draw a point</title>
+    <title>CSE 160 Asg 1</title>
   </head>
 
   <img src = "../lib/assets/freepik-easel.png" id="easelImage">
@@ -62,7 +63,7 @@ Note to Graders:
     </button>
 
     <!-- <p id = "numdot">XXX</p> -->
-     
+
     <div class="container">
       <div class="sliders">
         <h2>Color Adjustment:</h2>
@@ -90,7 +91,8 @@ Note to Graders:
       Let Them Eat Cake:
     </h2>
     <button type="button" id="cakeToggle">🍰</button>
-
+    <button type="button" id="imgToggle">🖼️</button>
+    <img id="hiddenImage" src="../lib/assets/cake.png" alt="Toggle Image">
 
     <script src="../lib/webgl-utils.js"></script>
     <script src="../lib/webgl-debug.js"></script>
@@ -99,6 +101,21 @@ Note to Graders:
     <script src="../lib/shape-classes/Triangle.js"></script>
     <script src="../lib/shape-classes/Circle.js"></script>
     <script src="asg1.js"></script>
+
+    <!-- Used ChatGPT to figure out how to get hidden image to display -->
+    <script>
+     // Image Toggle Functionality
+    const imgToggleButton = document.getElementById('imgToggle');
+    const hiddenImage = document.getElementById('hiddenImage');
+
+    imgToggleButton.addEventListener('click', () => {
+        if (hiddenImage.style.display === 'none' || hiddenImage.style.display === '') {
+          hiddenImage.style.display = 'block'; // Show the image
+        } else {
+          hiddenImage.style.display = 'none'; // Hide the image
+        }
+        });
+    </script>
 
   </body>
 </html>

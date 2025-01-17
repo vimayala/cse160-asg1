@@ -156,3 +156,13 @@ button img {
 #blueSlider.slider::-webkit-slider-thumb {
     background: #1783ff;
 }
+
+#hiddenImage {
+    display: none; /* Start with the image hidden */
+    max-width: 100%;
+    margin-top: 10px; /* Add some spacing from the button */
+  }
+
+  #imgToggle {
+    margin-top: 10px;
+  }

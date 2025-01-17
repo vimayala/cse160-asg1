@@ -48,7 +48,7 @@ var g_shapesList = [];
 
 function main() {
     setUpWebGL();
-    connectVariablesToWebGL();
+    connectVariablesToGLSL();
     addActionForHTMLUI();
 
     // Register function (event handler) to be called on a mouse press and allows clicking and dragging on the canvas
@@ -80,12 +80,6 @@ function handleClicks(ev) {
 
     point.position = [x, y];
     point.color = [g_selectedColor[0], g_selectedColor[1], g_selectedColor[2], g_selectedColor[3]];
-    console.log("Current color = : \n" +
-        g_selectedColor[0] + "\t" +
-        g_selectedColor[1] + "\t" +    
-        g_selectedColor[2] + "\t" +
-        g_selectedColor[3] 
-    );
     point.size = g_selectedSize;
     point.segments = g_selectedSegments;
     g_shapesList.push(point);
@@ -119,7 +113,7 @@ function setUpWebGL(){
 
 }
 
-function connectVariablesToWebGL(){
+function connectVariablesToGLSL(){
     // Initialize shaders
     if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
         console.log('Failed to intialize shaders.');
@@ -160,7 +154,8 @@ function addActionForHTMLUI(){
         g_clearColorG = 1.0
         g_clearColorB = 1.0;
         gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        renderAllShapes(); 
 
     };
     document.getElementById('creamCanvas').onclick = function () { 
@@ -169,6 +164,7 @@ function addActionForHTMLUI(){
         g_clearColorB = 0.82;
         gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT);
+        renderAllShapes(); 
 
     };
     document.getElementById('blackCanvas').onclick = function () { 
@@ -177,10 +173,12 @@ function addActionForHTMLUI(){
         g_clearColorB = 0.0;
         gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT);
+        renderAllShapes(); 
     };
 
     // Cake Preview Button Events
     document.getElementById('cakeToggle').onclick = function () { birthdayCake(); };
+    // document.getElementById('cakeToggle').onclick = function () { birthdayCake(); };
 
     // Shape Button Events
     document.getElementById('pointButton').onclick = function () {g_selectedType = POINT};
