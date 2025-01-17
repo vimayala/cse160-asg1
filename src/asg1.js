@@ -82,6 +82,12 @@ function handleClicks(ev) {
     point.color = [g_selectedColor[0], g_selectedColor[1], g_selectedColor[2], g_selectedColor[3]];
     point.size = g_selectedSize;
     point.segments = g_selectedSegments;
+    console.log("Current color = : \n" +
+        g_selectedColor[0] + "\t" +
+        g_selectedColor[1] + "\t" +    
+        g_selectedColor[2] + "\t" +
+        g_selectedColor[3] 
+    );
     g_shapesList.push(point);
 
     // Draw all the set of shapes needed for the canvas
@@ -159,9 +165,9 @@ function addActionForHTMLUI(){
 
     };
     document.getElementById('creamCanvas').onclick = function () { 
-        g_clearColorR = 0.88;
-        g_clearColorG = 0.85;
-        g_clearColorB = 0.82;
+        g_clearColorR = 1;
+        g_clearColorG = 0.97;
+        g_clearColorB = 0.89;
         gl.clearColor(g_clearColorR, g_clearColorG, g_clearColorB, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT);
         renderAllShapes(); 
