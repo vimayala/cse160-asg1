@@ -82,12 +82,6 @@ function handleClicks(ev) {
     point.color = [g_selectedColor[0], g_selectedColor[1], g_selectedColor[2], g_selectedColor[3]];
     point.size = g_selectedSize;
     point.segments = g_selectedSegments;
-    console.log("Current color = : \n" +
-        g_selectedColor[0] + "\t" +
-        g_selectedColor[1] + "\t" +    
-        g_selectedColor[2] + "\t" +
-        g_selectedColor[3] 
-    );
     g_shapesList.push(point);
 
     // Draw all the set of shapes needed for the canvas
