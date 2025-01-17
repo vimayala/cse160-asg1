@@ -60,7 +60,6 @@ function main() {
 }
 
 function handleClicks(ev) {
-
     // Get x,y coords and return it to WebGL coordinates
     [x,y ,x,y, x,y] = convertCoordinatesToGL(ev);
 
@@ -143,7 +142,6 @@ function connectVariablesToGLSL(){
 }
 
 function addActionForHTMLUI(){
-
     // Canvas Color + Clear Button Events
     document.getElementById('clear').onclick = function () { 
         g_shapesList = []; 
@@ -235,7 +233,6 @@ function renderAllShapes(){
         g_shapesList[i].render();
 
   }
-
     // var duration = performance.now() - startTime;
     // sendTextToHTML("numdot :" + len + " ms: " + Math.floor(duration) + " fps: " + Math.floor(10000/duration) / 10, "numdot");
 }
@@ -400,7 +397,7 @@ function birthdayCake() {
         startX = -cakeWidth / 2 + sprinkleSize;
         startY = -cakeHeight + 0.6 / 2 - sprinkleSize; // Start at the top of the cake
         
-        for (let i = 0; i < numSprinkles; i++) {      // - Here is where I used ChatGPT for guidance- - - - - - - - - - - - - - - - - - - - - - - - - -
+        for (let i = 0; i < numSprinkles; i++) {      // - Here is where I used ChatGPT for guidance - - - - - - - - - - - - - - - - - - - - - - - - - -
             // Alternate y positions for the zigzag pattern
             let x = startX + (i * sprinkleSize * 2.75); // Horizontal spacing between sprinkles
             let y = startY + (i % 2 === 0 ? sprinkleSize * 2.25 * Math.random() : -sprinkleSize * 2.25 * Math.random()); // Alternate up and down
