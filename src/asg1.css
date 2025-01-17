@@ -25,58 +25,72 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 12px;
 }
 
 button:hover {
     background: #6f7c97;
 }
 
-/* Slider styling taken from https://www.w3schools.com/howto/howto_js_rangeslider.asp to beautify the sliders */
-.slider-container {
-    width: 150px;
+.container {
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start;
+    gap: 30px; 
 }
 
-.slider {
-    -webkit-appearance: none; 
-    appearance: none;
-    width: 27%;
-    height: 15px;
-    border-radius: 5px;
-    background: #d3d3d3; 
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-  }
-  
-  .slider:hover {
-    opacity: 1;
-  }
-  
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #828eaa;
-    cursor: pointer;
-  }
-  
-  .slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #828eaa;
-    cursor: pointer;
-  }
+/* Slider styling taken and adjusted from https://www.w3schools.com/howto/howto_js_rangeslider.asp to beautify the sliders */
+    .slider-container {
+        width: 150px;
+    }
+    .slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 15px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+    }
+    .slider:hover {
+      opacity: 1;
+    }
 
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #828eaa;
+      cursor: pointer;
+    }
 
-.slider:hover {
-    background: #ccc; /* Slightly darker on hover */
-}
-
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #828eaa;
+      cursor: pointer;
+    }   
+    .slider:hover {
+        background: #ccc; /* Slightly darker on hover */
+    }
 /* Above from W3Schools */
+
+.slider-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sliders {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
 button img {
     width: 20px;
@@ -85,8 +99,8 @@ button img {
 
 #easelImage {
     position: absolute; 
-    width: 950px; 
-    bottom: -125px; 
+    width: 475px; 
+    bottom: -110px; 
     left: 50%;
     transform: translateX(-50%); 
     z-index: -1;
@@ -96,34 +110,36 @@ button img {
     width: 100px;
     height: 100px;
     border: 1px solid #b6b6b6;
-    margin-top: 10px;
-    margin-left: -890px; 
-
-}
-
-/* Allow sliders and color preview to have their own spots */
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-}
-.sliders {
-    width: 85%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    margin-top: 40px; 
+    margin-left: 15px; /* Add space to the left of the preview */
+    flex-shrink: 0;
 }
 
 /* Keep sliders at same distance */
 #redSlider{
-    margin-left: 25px;
+    margin-left: 26px;
+    max-width: 400px;
+    width: 325px; 
+
 }
 #greenSlider{
-    margin-left: 12px;
+    margin-left: 11px;
+    width: 325px; 
+
 }
 #blueSlider{
-    margin-left: 25px;
+    margin-left: 24px;
+    width: 325px; 
+
+}
+#alphaSlider {
+    width: 325px; 
+}
+#sizeSlider{
+    max-width: 400px;
+}
+#segSlider {
+    max-width: 257px;
 }
 
 /* Change slider button color per color */
@@ -157,6 +173,8 @@ button img {
     background: #1783ff;
 }
 
+
+/* From help of ChatGPT */
 #hiddenImage {
     display: none; /* Start with the image hidden */
     max-width: 100%;
